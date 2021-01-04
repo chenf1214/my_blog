@@ -1,2 +1,2 @@
 # my_blog
-A vuepress blog
+a vuepress blog
