@@ -15,6 +15,23 @@ var LogLevel;
     LogLevel[LogLevel["Warn"] = 1] = "Warn";
     LogLevel[LogLevel["Info"] = 2] = "Info";
 })(LogLevel || (LogLevel = {}));
+var Role;
+(function (Role) {
+    Role["Student"] = "student";
+    Role["Teacher"] = "teacher";
+})(Role || (Role = {}));
+function lala(data) {
+    for (var key in Role) {
+        console.log(key);
+        if (data == Role[key]) {
+            return true;
+        }
+    }
+    return false;
+}
+console.log(lala('teacher'), 888888);
+console.log(lala('teacher3'), 888888);
+console.log(lala('student'), 888888);
 console.log(LogLevel.Error);
 console.log(LogLevel[0]);
 console.log(0 /* Error */);
@@ -61,3 +78,9 @@ var Animal = /** @class */ (function () {
     return Animal;
 }());
 var gretter = new Animal('word');
+var someValue = 'i love you';
+var strLen = someValue.length;
+var strLen2 = someValue.length;
+var test;
+//test++;
+console.log(test);

@@ -8,7 +8,11 @@
   },
   "devDependencies": {
     "vuepress": "1.7.1",
+    "vuepress-plugin-nuggets-style-copy": "^1.0.3",
     "vuepress-theme-reco": "1.6.1"
   },
-  "description": "my_blog"
+  "description": "my_blog",
+  "dependencies": {
+    "vuepress-plugin-code-copy": "^1.0.6"
+  }
 }

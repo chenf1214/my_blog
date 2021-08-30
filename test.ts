@@ -25,6 +25,25 @@ const enum LogLevel2 {
   Warn, // SDK警告日志
   Info, // SDK基础日志
 }
+enum Role {
+  Student = 'student',
+  Teacher = 'teacher',
+}
+
+function lala (data: string){
+  for(let key in Role){
+    console.log(key)
+    if(data == Role[key]){
+      return true
+    }
+  }
+  return false
+}
+
+console.log(lala('teacher'),888888)
+console.log(lala('teacher3'),888888)
+console.log(lala('student'),888888)
+
 
 console.log(LogLevel.Error)
 console.log(LogLevel[0])
@@ -96,4 +115,15 @@ class Animal {
 }
 
 let gretter = new Animal('word')
+
+let someValue: any = 'i love you'
+let strLen: number = (<string>someValue).length
+
+let strLen2: number = (someValue as string).length
+
+let test:number
+test++
+console.log(test)
+
+
 
