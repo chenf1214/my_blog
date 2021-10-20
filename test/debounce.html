@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="bigDiv" style="width: 100px; height: 100px; background-color: cadetblue;">
+        
+    </div>
+    <script>
+        console.log(0)
+        function test(){
+            console.log(123)
+            console.log(this)
+        }
+        function debounce(func, delay){
+            var timeout
+            return function(...args){
+                console.log(args)
+                clearTimeout(timeout)
+                timeout =  setTimeout(()=>{
+                    func.appply(this, args)
+                },delay)
+            }
+        }
+        // let a = debounce(test, 1000)
+        // a()
+        // a()
+        
+
+        let bigDiv2 = document.getElementById('bigDiv')
+        console.log(bigDiv2, bigDiv)
+
+        bigDiv2.addEventListener('mousemove', debounce(test,1000))
+        //bigDiv2.addEventListener('mousemove', test)
+
+
+    </script>
+</body>
+</html>
