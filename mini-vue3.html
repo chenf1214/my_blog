@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <button id="btn">数量+1</button>
+</body>
+<script>
+
+    const root = document.querySelector('#app')
+    const btn = document.querySelector('#btn')
+    // 对象类型判断
+    const isObject = val => val !== null && typeof val === 'object'
+    const toProxy = new WeakMap() // 缓存代理过的对象
+    const toRaw = new WeakMap() // 缓存被代理过的对象
+    const handlers = {
+        get (target, key, receiver) {
+            const res = Reflect.get(target, key, receiver)
+            return isObject(res) ? reactive(res) : res//⭐️⭐️⭐️⭐️⭐️⭐️
+        },
+        set (target, key, value, receiver) {
+            const result = Reflect.set(target, key, value, receiver)
+            return result
+        }
+    }
+    const ob = reactive({
+        name: '小明',
+        number: 11
+    })
+    // let cNumber = computed(() => ob.number * 2)
+    // effect(() => {
+    // root.innerHTML = `<h1>${ob.name}---${ob.number}---${cAge.value}</h1>`
+    // })
+    // btn.onclick = function () {
+    // ob.number += 1
+    // }
+
+    
+function reactive (target) {
+  let observed = toProxy.get(target)
+  // 如果是缓存代理过的
+  console.log(observed)
+  if (observed) {
+    return observed
+  }
+  if (toRaw.has(target)) {
+    return target
+  }
+  observed = new Proxy(target, handlers)
+  toProxy.set(target, observed) // 缓存observed
+  toRaw.set(observed, target) // 缓存target
+  return observed
+}
+
+function effect (fn, options = {}) {
+  const effect = createReactiveEffect(fn, options)
+  if (!options.lazy) {
+    effect()
+  }
+  return effect
+}
+//创建一个新的effect函数，并且给这个effect函数挂在一些属性，为后面做computed准备，这个effect函数里面调用run函数, 最后在返回出新的effect
+function createReactiveEffect(fn, options) {
+  const effect = function effect(...args) {
+    return run(effect, fn, args) // 里面执行fn
+  }
+  // 给effect挂在一些属性
+  effect.lazy = options.lazy
+  effect.computed = options.computed
+  effect.deps = []
+  return effect
+}
+ 
+const activeEffectStack = [] // 声明一个数组，来存储当前的effect，订阅时候需要
+function run (effect, fn, args) {
+  if (activeEffectStack.indexOf(effect) === -1) {
+    try {
+      // 把effect push到数组中
+      activeEffectStack.push(effect)
+      return fn(...args)
+    }
+    finally {
+      // 清除已经收集过得effect，为下个effect做准备
+      activeEffectStack.pop()
+    }
+  }
+}
+</script>
+</html>
