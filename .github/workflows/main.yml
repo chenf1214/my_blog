@@ -22,7 +22,7 @@ jobs:
       # 添加这一步来设置环境变量
       - name: Set Git SSL Cipher List
         run: |
-          echo "export GIT_SSL_CIPHER_LIST=HIGH:!aNULL:!MD5" >> $GITHUB_ENV
+          echo "export NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
 
       - name: Build
         run: npm install && npm run build
