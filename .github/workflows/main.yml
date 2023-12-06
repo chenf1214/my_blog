@@ -36,8 +36,8 @@ jobs:
         run: npm install && npm run build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN2 }}
-          BRANCH: gh-pages
-          FOLDER: public
+          github_token: ${{ secrets.ACCESS_TOKEN }} # Github Personal Access Token （需在 repo 中勾选 repo:public_repo 和 user:read:user）
+          publish_dir: public # 部署文件目录，一般为 public 文件夹
+          commit_message: Deploy the blog # 提交信息
