@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "author": "reco_luan",
   "scripts": {
-    "dev": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress dev . --open --host \"localhost\"",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress build"
+    "dev": "vuepress dev . --open --host \"localhost\"",
+    "build": "vuepress build --openssl-legacy-provider"
   },
   "devDependencies": {
     "vuepress": "1.7.1",
