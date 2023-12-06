@@ -19,6 +19,11 @@ jobs:
         with:
           persist-credentials: false
 
+      # 添加这一步来设置环境变量
+      - name: Set Git SSL Cipher List
+        run: |
+          echo "export GIT_SSL_CIPHER_LIST=DEFAULT:!RC4" >> $GITHUB_ENV
+
       - name: Build
         run: npm install && npm run build
 
