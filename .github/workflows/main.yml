@@ -37,7 +37,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        with: 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
+        with:
           personal_token: ${{ secrets.ACCESS_TOKEN2 }} # Github Personal Access Token （需在 repo 中勾选 repo:public_repo 和 user:read:user）
           publish_dir: public # 部署文件目录，一般为 public 文件夹
           commit_message: Deploy the blog # 提交信息
